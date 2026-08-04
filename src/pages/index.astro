@@ -1,17 +1,1783 @@
 ---
+import { supabase } from "../lib/supabase";
+import "../styles/tailwind.css";
 
+// Fetch client survey context for ASESORES INMOBILIARIOS MARAM SL dynamically from Supabase
+const { data: clientSurveys } = await supabase
+	.from("client_surveys")
+	.select("*")
+	.ilike("company_name", "%ASESORES INMOBILIARIOS MARAM%")
+	.limit(1);
+
+const client =
+	clientSurveys && clientSurveys.length > 0 ? clientSurveys[0] : null;
+
+const companyName = client?.company_name || "ASESORES INMOBILIARIOS MARAM SL";
+const phone1 = client?.phone_1 || "673583698";
+const phone2 = client?.phone_2 || "664476066";
+const whatsapp = client?.whatsapp || "673583698";
+const email = client?.email || "asesoresinmobiliariosmaramsl@hotmail.com";
+const address =
+	client?.address ||
+	"C/ Ingenieros Azucareros, esq. C/ Ganadería, Polígono San Gerónimo, La Orotava, Santa Cruz de Tenerife";
+
+const historyText =
+	client?.history ||
+	"Nuestra empresa nació con la ilusión de ofrecer un servicio de construcción basado en la calidad, la confianza y el compromiso con cada cliente. Desde nuestros inicios, hemos trabajado con esfuerzo, responsabilidad y dedicación, creciendo proyecto a proyecto gracias a la satisfacción de quienes han confiado en nosotros. Hoy seguimos manteniendo los mismos valores que nos impulsaron desde el primer día: profesionalidad, honestidad y excelencia en cada obra que realizamos.";
+
+const missionText =
+	client?.mission ||
+	"Construimos más que edificios, construimos confianza. Nuestra misión es ofrecer proyectos de construcción de máxima calidad, adaptados a las necesidades de cada cliente. Nos comprometemos a trabajar con seriedad, transparencia y profesionalidad, garantizando un servicio cercano, materiales de primera calidad y el cumplimiento de los plazos acordados.";
+
+const diffText =
+	client?.differentiation ||
+	"Nos diferenciamos por nuestro compromiso con la calidad, la seriedad y el trato cercano, ofreciendo soluciones personalizadas y cumpliendo siempre con los plazos acordados.";
+
+const whyUsText =
+	client?.why_choose_us ||
+	"Porque para nosotros cada cliente es único. Nos implicamos en cada proyecto como si fuera propio, ofreciendo un trato cercano, asesoramiento personalizado y un trabajo realizado con dedicación y profesionalidad. Nuestro objetivo no es solo construir, sino generar confianza y que nuestros clientes se sientan tranquilos durante todo el proceso.";
+
+const logoRed = "/logo-red.png";
+const logoWhite = "/logo-white.png";
+const logoPng = logoRed;
+
+const siteUrl = "https://maram-inmobiliaria-construccion.es";
+const pageTitle = `${companyName} | Obra Nueva en Tenerife, Promotora y Constructora de Casas`;
+const pageDescription = `${companyName} - Inmobiliaria y constructora experta en obra nueva en Tenerife, venta de pisos, casas en Tenerife Sur, Santa Cruz y La Orotava. Servicios inmobiliarios de máxima calidad.`;
 ---
 
-<html lang="en">
+<!doctype html>
+<html class="scroll-smooth" lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<link rel="canonical" href={siteUrl} />
+
+		<!-- Open Graph / SEO Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": ["RealEstateAgent", "GeneralContractor"],
+				"name": "ASESORES INMOBILIARIOS MARAM SL",
+				"description": "Constructora y promotora inmobiliaria especializada en obra nueva en Tenerife, venta de casas, pisos y reformas integrales.",
+				"url": "https://maram-inmobiliaria-construccion.es",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "C/ Ingenieros Azucareros, esq. C/ Ganadería, Polígono San Gerónimo",
+					"addressLocality": "La Orotava",
+					"addressRegion": "Santa Cruz de Tenerife",
+					"addressCountry": "ES"
+				},
+				"telephone": "+34-673583698",
+				"email": "asesoresinmobiliariosmaramsl@hotmail.com",
+				"areaServed": [
+					"Tenerife",
+					"Santa Cruz de Tenerife",
+					"Tenerife Sur",
+					"La Orotava"
+				]
+			}
+		</script>
+
+		<!-- Stitch Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			:root {
+				--font-heading: "Montserrat", sans-serif;
+				--font-body: "Inter", sans-serif;
+			}
+			body {
+				font-family: var(--font-body);
+			}
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			.font-heading {
+				font-family: var(--font-heading) !important;
+				font-style: normal !important;
+			}
+			.hero-overlay {
+				background: linear-gradient(
+					135deg,
+					rgba(25, 6, 6, 0.92) 0%,
+					rgba(41, 10, 10, 0.75) 50%,
+					rgba(30, 29, 41, 0.85) 100%
+				);
+			}
+			.glass-card {
+				background: rgba(255, 255, 255, 0.85);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+			}
+		</style>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body
+		class="bg-[#f1f0f3] text-[#1e1d29] selection:bg-[#B62B2A] selection:text-white"
+	>
+		<!-- TopNavBar (White Navbar with Prominent Logo) -->
+		<nav
+			class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-[#ceced6] text-[#1e1d29] shadow-sm"
+		>
+			<div
+				class="flex justify-between items-center px-6 lg:px-16 py-3 max-w-[1280px] mx-auto"
+			>
+				<a href="#" class="flex items-center gap-3">
+					<img
+						src={logoRed}
+						alt={companyName}
+						class="h-12 lg:h-14 w-auto object-contain p-1 transition-all"
+					/>
+					<div class="hidden flex-col">
+						<span
+							class="font-heading text-lg lg:text-xl font-bold tracking-tight text-[#1e1d29]"
+							>MARAM SL</span
+						>
+						<span
+							class="text-[9px] uppercase tracking-widest text-[#B62B2A] font-semibold"
+							>Construcción & Inmobiliaria</span
+						>
+					</div>
+				</a>
+
+				<!-- Desktop Links -->
+				<div class="hidden md:flex items-center gap-8">
+					<a
+						class="text-[12px] uppercase tracking-[0.1em] font-bold text-[#B62B2A] border-b-2 border-[#B62B2A] pb-1"
+						href="#inicio">Inicio</a
+					>
+					<a
+						class="text-[12px] uppercase tracking-[0.1em] font-bold text-[#5e5c76] hover:text-[#B62B2A] transition-colors"
+						href="#nosotros">Nosotros</a
+					>
+					<a
+						class="text-[12px] uppercase tracking-[0.1em] font-bold text-[#5e5c76] hover:text-[#B62B2A] transition-colors"
+						href="#promociones">Obra Nueva</a
+					>
+					<a
+						class="text-[12px] uppercase tracking-[0.1em] font-bold text-[#5e5c76] hover:text-[#B62B2A] transition-colors"
+						href="#servicios">Servicios Inmobiliarios</a
+					>
+					<a
+						class="text-[12px] uppercase tracking-[0.1em] font-bold text-[#5e5c76] hover:text-[#B62B2A] transition-colors"
+						href="#contacto">Contacto</a
+					>
+				</div>
+
+				<a
+					href="#contacto"
+					class="bg-brand-red-gradient hover:opacity-95 text-white px-6 py-3 rounded text-[12px] font-bold uppercase tracking-[0.1em] transition-all shadow-md shadow-[#B62B2A]/30"
+				>
+					Solicitar Presupuesto
+				</a>
+			</div>
+		</nav>
+
+		<main>
+			<!-- Hero Section with Deep Crimson & Cyan Glow Overlays -->
+			<section
+				id="inicio"
+				class="relative min-h-[90vh] flex items-center overflow-hidden bg-[#190606]"
+			>
+				<div class="absolute inset-0 z-0">
+					<div
+						class="w-full h-full bg-cover bg-center transition-transform duration-1000 scale-105"
+						style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkxy94L15wn_msNPeVoA_rxkEhRoCNBP9nYJsiK3jKz4bHtIIqecYfsXvRAVLguw7X8wfnrAfYRx3y_se1-MC2hhWkcb2xg4Q5wDSNo1tu4xEQ4VXb65I3T811sXCEiNxaxjFnhDsUAVOzvKUehe-ry4esmH4CvFq_R-rQjX2qh7G8PzXtWfwFLmDIGz0ecDvUZv_QbNw4-S4Mq1Adu-I0mUQs1GqwGk3XWR9QNw0H58Jar7rLcx_70rCGske7uQOn5SH4sB6Rpg')"
+					>
+					</div>
+					<div class="absolute inset-0 hero-overlay"></div>
+				</div>
+
+				<div
+					class="relative z-10 px-6 lg:px-16 max-w-[1280px] mx-auto w-full pt-28 pb-20"
+				>
+					<div class="max-w-3xl space-y-6">
+						<span
+							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2D9E9F]/20 border border-[#4af3f4]/40 text-[#4af3f4] text-[11px] font-bold uppercase tracking-wider backdrop-blur-md"
+						>
+							<span
+								class="w-2 h-2 rounded-full bg-[#4af3f4] animate-pulse"
+							></span>
+							Constructora y Asesores Inmobiliarios en Tenerife
+						</span>
+
+						<!-- TAGLINE & H1 -->
+						<h1
+							class="text-white text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight"
+						>
+							Obra Nueva en Tenerife: Promotora y Constructora de <span
+								class="text-gold-gradient"
+								>Casas de Máxima Calidad</span
+							>
+						</h1>
+
+						<p
+							class="text-[#ceced6] text-lg lg:text-xl font-normal leading-relaxed max-w-2xl"
+						>
+							Construimos más que edificios, <strong
+								class="text-white font-semibold"
+								>construimos confianza</strong
+							>. Servicios de construcción para tu casa o piso en
+							Tenerife. Compra tu casa o piso en Tenerife. Calidad
+							y la fiabilidad.
+						</p>
+
+						<div class="flex flex-col sm:flex-row gap-4 pt-4">
+							<a
+								href="#contacto"
+								class="bg-brand-red-gradient hover:opacity-95 text-white px-8 py-4 text-[12px] uppercase tracking-[0.1em] font-bold transition-all flex items-center justify-center gap-2 group shadow-xl shadow-[#B62B2A]/40 rounded"
+							>
+								<span>Cuéntanos tu Proyecto</span>
+								<span
+									class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+									>arrow_forward</span
+								>
+							</a>
+							<a
+								href={`https://wa.me/34${whatsapp}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="bg-[#1e1d29]/80 border border-[#2D9E9F]/50 text-white px-8 py-4 text-[12px] uppercase tracking-[0.1em] font-bold hover:bg-[#2D9E9F]/20 backdrop-blur-md transition-all flex items-center justify-center gap-2 rounded"
+							>
+								<svg
+									class="w-5 h-5 fill-[#4af3f4]"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.204 8.204 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.182 8.182 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.12-.56.12-.17.25-.66.8-.81.97-.15.17-.3.19-.55.07-.25-.12-1.05-.39-2.01-1.24-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.24.24-.4.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.12.17 1.74 2.65 4.21 3.72.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.3z"
+									></path>
+								</svg>
+								<span>WhatsApp Directo</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Trust / Stats Bar with Teal & Gold Highlights -->
+			<section
+				class="bg-[#1e1d29] border-y border-[#2D9E9F]/30 py-12 relative z-20 text-white"
+			>
+				<div
+					class="max-w-[1280px] mx-auto px-6 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-[#5e5c76]/40"
+				>
+					<div class="text-center pt-4 md:pt-0">
+						<div
+							class="text-3xl lg:text-5xl font-bold font-heading text-gold-gradient mb-1"
+						>
+							100%
+						</div>
+						<div
+							class="text-[11px] uppercase tracking-[0.1em] font-bold text-[#ceced6]"
+						>
+							Compromiso con la Calidad
+						</div>
+					</div>
+					<div class="text-center pt-4 md:pt-0">
+						<div
+							class="text-3xl lg:text-5xl font-bold font-heading text-cyan-gradient mb-1"
+						>
+							Tenerife
+						</div>
+						<div
+							class="text-[11px] uppercase tracking-[0.1em] font-bold text-[#ceced6]"
+						>
+							La Orotava y Tenerife Sur
+						</div>
+					</div>
+					<div class="text-center pt-4 md:pt-0">
+						<div
+							class="text-3xl lg:text-5xl font-bold font-heading text-gold-gradient mb-1"
+						>
+							Fiabilidad
+						</div>
+						<div
+							class="text-[11px] uppercase tracking-[0.1em] font-bold text-[#ceced6]"
+						>
+							Servicio Basado en Confianza
+						</div>
+					</div>
+					<div class="text-center pt-4 md:pt-0">
+						<div
+							class="text-3xl lg:text-5xl font-bold font-heading text-cyan-gradient mb-1"
+						>
+							A+
+						</div>
+						<div
+							class="text-[11px] uppercase tracking-[0.1em] font-bold text-[#ceced6]"
+						>
+							Eficiencia Energética
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Sobre Nosotros / Historia -->
+			<section
+				id="nosotros"
+				class="py-24 px-6 lg:px-16 max-w-[1280px] mx-auto"
+			>
+				<div
+					class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center"
+				>
+					<div class="md:col-span-6 space-y-6">
+						<span
+							class="text-[12px] font-bold text-[#B62B2A] uppercase tracking-[0.2em] block"
+							>Empresa de Construcción e Inmobiliaria en Tenerife</span
+						>
+						<h2
+							class="text-3xl lg:text-4xl font-bold text-[#1e1d29] font-heading"
+						>
+							Sobre {companyName}
+						</h2>
+						<p
+							class="text-[#3D3B4F] text-lg leading-relaxed font-normal"
+						>
+							{historyText}
+						</p>
+						<p class="text-[#5e5c76] text-sm leading-relaxed">
+							Somos una de las <strong
+								>empresas constructoras y promotoras
+								inmobiliarias</strong
+							> de referencia en el norte y sur de la isla. Nos especializamos
+							en la <strong>venta de casas en Tenerife</strong>,
+							la edificación de <strong
+								>obra nueva en Santa Cruz de Tenerife</strong
+							> y proyectos a medida llave en mano.
+						</p>
+						<div
+							class="p-6 bg-white border-l-4 border-[#B62B2A] border-y border-r border-[#ceced6] shadow-sm rounded-r"
+						>
+							<h3
+								class="font-heading text-base font-bold text-[#1e1d29] mb-1"
+							>
+								Diferenciación y Garantía
+							</h3>
+							<p class="text-[#5e5c76] text-sm leading-relaxed">
+								{diffText}
+							</p>
+						</div>
+					</div>
+					<div class="md:col-span-6">
+						<div
+							class="aspect-[4/3] bg-[#ceced6] overflow-hidden border border-[#5e5c76]/30 shadow-xl rounded"
+						>
+							<img
+								class="w-full h-full object-cover"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuDddq6kESYOY2LHKSVb09FtqTTzvbOxEASc0FXC5wjVcepGGFkyffHX7SsRGAAKAFs-XOr7Kfh3gWSkDXjUm8C0X-dCZS_c1CcDpXmvwNsIyH13KFeIALXvmIEJaMJQsiOrWID6clS1mkzAPkSuFUHDye0SB542uPghGRrFHQHKA6ldhicGsTgdkjFXRl6H8TCMBLJSUjaEpYZ7ibnUyLfU6U_tZ_Ua3xmEpsJqExGOJ6_uTpD75gnedk6EMSosFSKdw1NfMOox9A"
+								alt="Empresa constructora y promotora de obra nueva en Tenerife"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<!-- Expanded Subsection: El Viaje Hacia Tu Nuevo Hogar -->
+				<div class="mt-20 pt-16 border-t border-[#ceced6]">
+					<div class="max-w-3xl mx-auto text-center space-y-4 mb-14">
+						<span
+							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-[#B62B2A]/10 text-[#B62B2A] text-[11px] font-bold uppercase tracking-wider border border-[#B62B2A]/20"
+						>
+							<span class="material-symbols-outlined text-base"
+								>home_pin</span
+							>
+							Compromiso & Garantía MARAM
+						</span>
+						<h3
+							class="text-2xl sm:text-4xl font-bold text-[#1e1d29] font-heading"
+						>
+							Haz Realidad el Sueño de tu Nueva Casa o Piso en
+							Tenerife
+						</h3>
+						<p class="text-[#5e5c76] text-base leading-relaxed">
+							Dar el paso para edificar o adquirir tu nueva
+							residencia es uno de los momentos más ilusionantes
+							de la vida. Nos diferenciamos por nuestro compromiso
+							con la calidad, la seriedad y un trato humano
+							cercano, acompañándote paso a paso en esta
+							inolvidable aventura.
+						</p>
+					</div>
+
+					<div
+						class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+					>
+						<!-- Step 1 -->
+						<div
+							class="bg-white p-8 rounded-xl border border-[#ceced6] shadow-sm hover:border-[#B62B2A] transition-all space-y-4 group"
+						>
+							<div
+								class="w-12 h-12 bg-brand-red-gradient text-white rounded-lg flex items-center justify-center font-bold text-lg font-heading shadow-md shadow-[#B62B2A]/20"
+							>
+								01
+							</div>
+							<h4
+								class="font-heading font-bold text-lg text-[#1e1d29] group-hover:text-[#B62B2A] transition-colors"
+							>
+								La Ilusión Inicial
+							</h4>
+							<p class="text-xs text-[#5e5c76] leading-relaxed">
+								Escuchamos tus necesidades e ideas para concebir
+								el hogar de tus sueños, ofreciéndote soluciones
+								personalizadas y viabilidad real.
+							</p>
+						</div>
+
+						<!-- Step 2 -->
+						<div
+							class="bg-white p-8 rounded-xl border border-[#ceced6] shadow-sm hover:border-[#2D9E9F] transition-all space-y-4 group"
+						>
+							<div
+								class="w-12 h-12 bg-teal-gradient text-white rounded-lg flex items-center justify-center font-bold text-lg font-heading shadow-md shadow-[#2D9E9F]/20"
+							>
+								02
+							</div>
+							<h4
+								class="font-heading font-bold text-lg text-[#1e1d29] group-hover:text-[#2D9E9F] transition-colors"
+							>
+								Tranquilidad & Plazos
+							</h4>
+							<p class="text-xs text-[#5e5c76] leading-relaxed">
+								Garantía de presupuesto cerrado y cumplimiento
+								estricto de los plazos de entrega pactados para
+								tu absoluta tranquilidad y serenidad.
+							</p>
+						</div>
+
+						<!-- Step 3 -->
+						<div
+							class="bg-white p-8 rounded-xl border border-[#ceced6] shadow-sm hover:border-[#D38C45] transition-all space-y-4 group"
+						>
+							<div
+								class="w-12 h-12 bg-gold-gradient text-white rounded-lg flex items-center justify-center font-bold text-lg font-heading shadow-md shadow-[#D38C45]/20"
+							>
+								03
+							</div>
+							<h4
+								class="font-heading font-bold text-lg text-[#1e1d29] group-hover:text-[#D38C45] transition-colors"
+							>
+								Materiales Nobles
+							</h4>
+							<p class="text-xs text-[#5e5c76] leading-relaxed">
+								Selección minuciosa de acabados y técnicas
+								constructivas que aseguran durabilidad y confort
+								térmico en Canarias.
+							</p>
+						</div>
+
+						<!-- Step 4 -->
+						<div
+							class="bg-white p-8 rounded-xl border border-[#ceced6] shadow-sm hover:border-[#B62B2A] transition-all space-y-4 group"
+						>
+							<div
+								class="w-12 h-12 bg-brand-red-gradient text-white rounded-lg flex items-center justify-center font-bold text-lg font-heading shadow-md shadow-[#B62B2A]/20"
+							>
+								04
+							</div>
+							<h4
+								class="font-heading font-bold text-lg text-[#1e1d29] group-hover:text-[#B62B2A] transition-colors"
+							>
+								Entrega de Llaves
+							</h4>
+							<p class="text-xs text-[#5e5c76] leading-relaxed">
+								El momento esperado: abres la puerta de tu nuevo
+								hogar sabiendo que está edificado sobre
+								cimientos de máxima confianza.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Promociones Destacadas (Rich 4-Card Bento Grid Layout) -->
+			<section
+				id="promociones"
+				class="py-24 bg-[#1e1d29] text-white border-t border-[#2D9E9F]/30"
+			>
+				<div class="px-6 lg:px-16 max-w-[1280px] mx-auto">
+					<div
+						class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
+					>
+						<div>
+							<span
+								class="text-[12px] font-bold text-[#4af3f4] uppercase tracking-[0.2em] block mb-2"
+								>Promociones en Tenerife & Venta sobre Plano</span
+							>
+							<h2
+								class="text-3xl lg:text-4xl font-bold font-heading text-white"
+							>
+								Obra Nueva y Proyectos Destacados
+							</h2>
+						</div>
+						<p class="max-w-md text-[#ceced6] text-sm">
+							Desarrollamos <strong
+								class="text-white font-semibold"
+								>proyectos de construcción de máxima calidad</strong
+							> en las zonas más cotizadas de Tenerife Sur, Santa Cruz
+							y La Orotava.
+						</p>
+					</div>
+
+					<!-- Multi-row Bento Grid: Alternating 2-item rows (8+4 / 4+8) and 3-item rows (4+4+4) -->
+					<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+						<!-- ROW 1 (2 Projects: 8 Cols + 4 Cols) -->
+						<!-- Bento 1: Large Featured (8 Cols) -->
+						<div
+							class="md:col-span-8 group relative overflow-hidden h-[420px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEMGCmxZKMnskG_s7reuQioGcpatUT02f3AIEvjSpuaSx77OHbP9GhjOlfbuZzq52hjjMs-3U2bg13YFp8a9p09WO0QpKM3vcr4i4O_vpDKSTGQ2kT6tXDMc-AMgn7S6aU9GFUxfpYpKSjsGh7K9ojKHA84lbDN-t4AloWjqGM_S4DV72biZFgMCqdAy6mnBCJ1ozac4NY_8aVpQFaTUiOUYYPF31gvlGWXMi9IUKCTeChq7OTwq9sf7eXNKG-PIjaW3lGgy_zw"
+								alt="Promoción de obra nueva en Tenerife Sur"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6 flex gap-2">
+								<span
+									class="bg-brand-red-gradient text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded"
+									>Obra Nueva Tenerife</span
+								>
+								<span
+									class="bg-[#1e1d29]/90 text-[#4af3f4] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#2D9E9F]/50 rounded"
+									>Venta sobre Plano</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-2xl font-bold mb-1"
+								>
+									Residencial Adeje Luxury
+								</h3>
+								<p
+									class="text-[#ceced6] text-[12px] uppercase font-bold mb-3"
+								>
+									Venta de pisos y villas unifamiliares en
+									Tenerife Sur
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#4af3f4] pb-1 text-[12px] font-bold uppercase hover:text-[#4af3f4] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles del Proyecto</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- Bento 2: Medium Card (4 Cols) -->
+						<div
+							class="md:col-span-4 group relative overflow-hidden h-[420px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1lTVQQEu_yQK2BnKMSq3ERmzlLeTx4YXorcjfeV09WtFp5G5JQjeyBQjpi-kLyU2hZk2OJiynyQxkp2DsdShu4p98z1KTkB5L2Hn52548jQHpihwSvv0B5X7pyyyM6qYR_nDjHeiyX7ZtXTx8GODLf_P_qj5qra5RxxuJqxhmPfLHRcpfpX_RDd_QBwrGgOoV5AA4TUt3OR1NRhHlNVEjcEg_uxSBtljNVe2gWcyGcvj-IiNyvtY_ocsl05r73MypTTa6UbvWlA"
+								alt="Pisos nuevos en Santa Cruz de Tenerife"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6">
+								<span
+									class="bg-[#1e1d29]/90 text-[#f5b582] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#D38C45]/50 rounded"
+									>Santa Cruz</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-xl font-bold mb-1"
+								>
+									Urban Loft Santa Cruz
+								</h3>
+								<p
+									class="text-[#ceced6] text-[11px] uppercase font-bold mb-3"
+								>
+									Reforma integral y áticos de diseño
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#f5b582] pb-1 text-[12px] font-bold uppercase hover:text-[#f5b582] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- ROW 2 (3 Projects: 4 Cols + 4 Cols + 4 Cols) -->
+						<!-- Bento 3: (4 Cols) -->
+						<div
+							class="md:col-span-4 group relative overflow-hidden h-[380px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI3eh4gSXUIGZdhvhTMCpaN07Y-CnoFoUgVKt3dzj4nqNe5qJRjjuRDkDWwnHqpeQrxpbW93Itw4dcnZ992Sm0lIaRj7PMSsprY2z5VUFiWA_MNGgW11f3Bdak05Y4jalof66Zkm6_UNHkjKoMvFGmNhkOUIWkfBrnqAWvp7wmMYT4-XWkKQnDMHj7RMed3Ffig2KkJh1Ps28Lkufe6u3CKkv-7joKWntEmFkm_qdnWGY7aiZAGvGohULRwtb-YhKRNSp9YFVmMg"
+								alt="Villa Marítima El Duque"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6">
+								<span
+									class="bg-[#1e1d29]/90 text-[#4af3f4] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#2D9E9F]/50 rounded"
+									>El Duque</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-xl font-bold mb-1"
+								>
+									Villa Marítima
+								</h3>
+								<p
+									class="text-[#ceced6] text-[11px] uppercase font-bold mb-3"
+								>
+									Construcción exclusiva con piscina infinity
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#4af3f4] pb-1 text-[12px] font-bold uppercase hover:text-[#4af3f4] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- Bento 4: (4 Cols) -->
+						<div
+							class="md:col-span-4 group relative overflow-hidden h-[380px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkxy94L15wn_msNPeVoA_rxkEhRoCNBP9nYJsiK3jKz4bHtIIqecYfsXvRAVLguw7X8wfnrAfYRx3y_se1-MC2hhWkcb2xg4Q5wDSNo1tu4xEQ4VXb65I3T811sXCEiNxaxjFnhDsUAVOzvKUehe-ry4esmH4CvFq_R-rQjX2qh7G8PzXtWfwFLmDIGz0ecDvUZv_QbNw4-S4Mq1Adu-I0mUQs1GqwGk3XWR9QNw0H58Jar7rLcx_70rCGske7uQOn5SH4sB6Rpg"
+								alt="Residencial Los Cristianos"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6">
+								<span
+									class="bg-[#1e1d29]/90 text-[#f5b582] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#D38C45]/50 rounded"
+									>Los Cristianos</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-xl font-bold mb-1"
+								>
+									Pisos Los Cristianos
+								</h3>
+								<p
+									class="text-[#ceced6] text-[11px] uppercase font-bold mb-3"
+								>
+									Promoción de viviendas a 200m del mar
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#f5b582] pb-1 text-[12px] font-bold uppercase hover:text-[#f5b582] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- Bento 5: (4 Cols) -->
+						<div
+							class="md:col-span-4 group relative overflow-hidden h-[380px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuDddq6kESYOY2LHKSVb09FtqTTzvbOxEASc0FXC5wjVcepGGFkyffHX7SsRGAAKAFs-XOr7Kfh3gWSkDXjUm8C0X-dCZS_c1CcDpXmvwNsIyH13KFeIALXvmIEJaMJQsiOrWID6clS1mkzAPkSuFUHDye0SB542uPghGRrFHQHKA6ldhicGsTgdkjFXRl6H8TCMBLJSUjaEpYZ7ibnUyLfU6U_tZ_Ua3xmEpsJqExGOJ6_uTpD75gnedk6EMSosFSKdw1NfMOox9A"
+								alt="Chalet Unifamiliar San Isidro"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6">
+								<span
+									class="bg-[#1e1d29]/90 text-[#4af3f4] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#2D9E9F]/50 rounded"
+									>San Isidro</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-xl font-bold mb-1"
+								>
+									Chalet Eco San Isidro
+								</h3>
+								<p
+									class="text-[#ceced6] text-[11px] uppercase font-bold mb-3"
+								>
+									Vivienda aislada de alta eficiencia A+
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#4af3f4] pb-1 text-[12px] font-bold uppercase hover:text-[#4af3f4] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- ROW 3 (2 Projects: 4 Cols + 8 Cols) -->
+						<!-- Bento 6: Medium Card (4 Cols) -->
+						<div
+							class="md:col-span-4 group relative overflow-hidden h-[420px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdCHO5x8TqK0NP_ZdMerkB83axnaVQiNJHhkiQUulNIjF0MpZShmxWlL2GMnSIBPQ0b16XIbv2xMksHHa2kLHHqQfzIMFN6UsD3txQTmdwtaNRaqyOJgUYFGH2Rx6Zs7t4WCRc71L2dXTQo8V_L5XP5LyZgufSzOt9mKgI54goE2PIC14uQ6hLbEJTwd6h_m675enCyxAagzmcQfChrPLSZti_3A0UVkF3wltsLVY5KAW86Qmzg5DU4EiKQm4gIQdYpRTsRAg0gA"
+								alt="Reforma Integral La Orotava"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6">
+								<span
+									class="bg-[#1e1d29]/90 text-[#f5b582] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#D38C45]/50 rounded"
+									>La Orotava</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-xl font-bold mb-1"
+								>
+									Finca Tradicional Orotava
+								</h3>
+								<p
+									class="text-[#ceced6] text-[11px] uppercase font-bold mb-3"
+								>
+									Restauración y bioclimatización
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#f5b582] pb-1 text-[12px] font-bold uppercase hover:text-[#f5b582] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+
+						<!-- Bento 7: Large Featured (8 Cols) -->
+						<div
+							class="md:col-span-8 group relative overflow-hidden h-[420px] border border-[#2D9E9F]/40 rounded-xl shadow-2xl"
+						>
+							<img
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1lTVQQEu_yQK2BnKMSq3ERmzlLeTx4YXorcjfeV09WtFp5G5JQjeyBQjpi-kLyU2hZk2OJiynyQxkp2DsdShu4p98z1KTkB5L2Hn52548jQHpihwSvv0B5X7pyyyM6qYR_nDjHeiyX7ZtXTx8GODLf_P_qj5qra5RxxuJqxhmPfLHRcpfpX_RDd_QBwrGgOoV5AA4TUt3OR1NRhHlNVEjcEg_uxSBtljNVe2gWcyGcvj-IiNyvtY_ocsl05r73MypTTa6UbvWlA"
+								alt="Promoción Tacoronte"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-[#190606]/95 via-[#190606]/30 to-transparent"
+							>
+							</div>
+							<div class="absolute top-6 left-6 flex gap-2">
+								<span
+									class="bg-[#1e1d29]/90 text-[#4af3f4] text-[10px] font-bold px-3 py-1 uppercase tracking-wider border border-[#2D9E9F]/50 rounded"
+									>Tacoronte</span
+								>
+								<span
+									class="bg-brand-red-gradient text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded"
+									>Promoción Obra Nueva</span
+								>
+							</div>
+							<div class="absolute bottom-8 left-8 right-8">
+								<h3
+									class="text-white font-heading text-2xl font-bold mb-1"
+								>
+									Residencial Tacoronte Garden
+								</h3>
+								<p
+									class="text-[#ceced6] text-[12px] uppercase font-bold mb-3"
+								>
+									Conjunto residencial de adosados con jardín
+									privado y aerotermia
+								</p>
+								<a
+									class="inline-flex items-center gap-2 text-white border-b border-[#4af3f4] pb-1 text-[12px] font-bold uppercase hover:text-[#4af3f4] transition-colors"
+									href="#contacto"
+								>
+									<span>Ver Detalles del Proyecto</span>
+									<span
+										class="material-symbols-outlined text-sm"
+										>east</span
+									>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Servicios (Cards with Soft Background & Teal Highlights) -->
+			<section id="servicios" class="py-24 bg-[#f1f0f3]">
+				<div class="px-6 lg:px-16 max-w-[1280px] mx-auto">
+					<div class="text-center mb-16">
+						<span
+							class="text-[12px] font-bold text-[#B62B2A] uppercase tracking-[0.2em] block mb-3"
+							>Servicios Inmobiliarios y de Construcción</span
+						>
+						<h2
+							class="text-3xl lg:text-4xl font-bold text-[#1e1d29] font-heading"
+						>
+							Empresa de Construcción y Asesores Inmobiliarios en
+							Tenerife
+						</h2>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<!-- Service 1 -->
+						<div
+							class="bg-white p-10 border border-[#ceced6] hover:border-[#2D9E9F] transition-all group shadow-md rounded hover:-translate-y-1"
+						>
+							<div
+								class="mb-8 w-14 h-14 bg-[#2D9E9F]/10 rounded-xl flex items-center justify-center text-[#2D9E9F] group-hover:bg-[#2D9E9F] group-hover:text-white transition-all"
+							>
+								<span
+									class="material-symbols-outlined text-4xl block"
+									>architecture</span
+								>
+							</div>
+							<h3
+								class="font-heading text-xl font-bold text-[#1e1d29] mb-4"
+							>
+								Promotora y Arquitectura
+							</h3>
+							<p class="text-[#5e5c76] text-sm mb-8">
+								Diseño y desarrollo de desarrollos inmobiliarios
+								en Canarias con un firme compromiso con la
+								calidad.
+							</p>
+							<ul
+								class="space-y-3 text-[11px] font-bold uppercase tracking-wider text-[#5e5c76]"
+							>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#2D9E9F] rounded-full"
+									></span> Estudios de Viabilidad Urbana
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#2D9E9F] rounded-full"
+									></span> Modelado 3D & Licencias
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#2D9E9F] rounded-full"
+									></span> Asesoría en Suelo Sujeto a Promoción
+								</li>
+							</ul>
+						</div>
+						<!-- Service 2 -->
+						<div
+							class="bg-white p-10 border border-[#ceced6] hover:border-[#B62B2A] transition-all group shadow-md rounded hover:-translate-y-1"
+						>
+							<div
+								class="mb-8 w-14 h-14 bg-[#B62B2A]/10 rounded-xl flex items-center justify-center text-[#B62B2A] group-hover:bg-[#B62B2A] group-hover:text-white transition-all"
+							>
+								<span
+									class="material-symbols-outlined text-4xl block"
+									>foundation</span
+								>
+							</div>
+							<h3
+								class="font-heading text-xl font-bold text-[#1e1d29] mb-4"
+							>
+								Constructora de Casas & Obra Nueva
+							</h3>
+							<p class="text-[#5e5c76] text-sm mb-8">
+								Construcción integral de viviendas unifamiliares
+								y chalets con un servicio de construcción basado
+								en la calidad y la fiabilidad.
+							</p>
+							<ul
+								class="space-y-3 text-[11px] font-bold uppercase tracking-wider text-[#5e5c76]"
+							>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#B62B2A] rounded-full"
+									></span> Constructora Llave en Mano
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#B62B2A] rounded-full"
+									></span> Control de Calidad Riguroso
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#B62B2A] rounded-full"
+									></span> Eficiencia Energética A+
+								</li>
+							</ul>
+						</div>
+						<!-- Service 3 -->
+						<div
+							class="bg-white p-10 border border-[#ceced6] hover:border-[#D38C45] transition-all group shadow-md rounded hover:-translate-y-1"
+						>
+							<div
+								class="mb-8 w-14 h-14 bg-[#D38C45]/10 rounded-xl flex items-center justify-center text-[#D38C45] group-hover:bg-[#D38C45] group-hover:text-white transition-all"
+							>
+								<span
+									class="material-symbols-outlined text-4xl block"
+									>home_repair_service</span
+								>
+							</div>
+							<h3
+								class="font-heading text-xl font-bold text-[#1e1d29] mb-4"
+							>
+								Servicios Inmobiliarios & Reformas
+							</h3>
+							<p class="text-[#5e5c76] text-sm mb-8">
+								Comprar casa en Tenerife o reformar inmuebles
+								existentes con asesoramiento personalizado y
+								honestidad.
+							</p>
+							<ul
+								class="space-y-3 text-[11px] font-bold uppercase tracking-wider text-[#5e5c76]"
+							>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#D38C45] rounded-full"
+									></span> Venta de Casas en Tenerife
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#D38C45] rounded-full"
+									></span> Reformas Integrales de Lujo
+								</li>
+								<li class="flex items-center gap-2">
+									<span
+										class="w-1.5 h-1.5 bg-[#D38C45] rounded-full"
+									></span> Valoración y Tasación de Inmuebles
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Dedicated Construction Finishes Section -->
+					<div class="mt-20 pt-16 border-t border-[#ceced6]">
+						<div
+							class="text-center max-w-3xl mx-auto mb-14 space-y-4"
+						>
+							<span
+								class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-[#B62B2A]/10 text-[#B62B2A] text-[11px] font-bold uppercase tracking-wider border border-[#B62B2A]/20"
+							>
+								<span
+									class="material-symbols-outlined text-base"
+									>square_foot</span
+								>
+								Calidad Constructiva & Detalle
+							</span>
+							<h3
+								class="text-2xl lg:text-4xl font-bold text-[#1e1d29] font-heading"
+							>
+								Acabados de Máxima Calidad y Materiales Premium
+							</h3>
+							<p class="text-[#5e5c76] text-base">
+								En cada proyecto de obra nueva y reforma en
+								Tenerife seleccionamos materiales nobles y
+								revestimientos de primera calidad que garantizan
+								durabilidad, elegancia y confort térmico.
+							</p>
+						</div>
+
+						<div
+							class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+						>
+							<!-- Finish 1 -->
+							<div
+								class="bg-white p-7 rounded border border-[#ceced6] shadow-sm hover:shadow-md transition-shadow space-y-4"
+							>
+								<div
+									class="w-12 h-12 bg-[#D38C45]/10 rounded-lg flex items-center justify-center text-[#D38C45]"
+								>
+									<span
+										class="material-symbols-outlined text-2xl"
+										>countertops</span
+									>
+								</div>
+								<h4
+									class="font-heading font-bold text-lg text-[#1e1d29]"
+								>
+									Pavimentos & Porcelánicos
+								</h4>
+								<p
+									class="text-xs text-[#5e5c76] leading-relaxed"
+								>
+									Suelos porcelánicos rectificados de gran
+									formato y parquets de madera tratada,
+									resistentes a la humedad marina de Canarias.
+								</p>
+							</div>
+
+							<!-- Finish 2 -->
+							<div
+								class="bg-white p-7 rounded border border-[#ceced6] shadow-sm hover:shadow-md transition-shadow space-y-4"
+							>
+								<div
+									class="w-12 h-12 bg-[#2D9E9F]/10 rounded-lg flex items-center justify-center text-[#2D9E9F]"
+								>
+									<span
+										class="material-symbols-outlined text-2xl"
+										>window</span
+									>
+								</div>
+								<h4
+									class="font-heading font-bold text-base text-[#1e1d29]"
+								>
+									Carpintería & Aluminios Cortizo
+								</h4>
+								<p
+									class="text-xs text-[#5e5c76] leading-relaxed"
+								>
+									Ventanales de rotura de puente térmico (RPT)
+									con doble acristalamiento bajo emisivo para
+									máximo aislamiento acústico.
+								</p>
+							</div>
+
+							<!-- Finish 3 -->
+							<div
+								class="bg-white p-7 rounded border border-[#ceced6] shadow-sm hover:shadow-md transition-shadow space-y-4"
+							>
+								<div
+									class="w-12 h-12 bg-[#B62B2A]/10 rounded-lg flex items-center justify-center text-[#B62B2A]"
+								>
+									<span
+										class="material-symbols-outlined text-2xl"
+										>bathroom</span
+									>
+								</div>
+								<h4
+									class="font-heading font-bold text-base text-[#1e1d29]"
+								>
+									Cocinas & Baños de Diseño
+								</h4>
+								<p
+									class="text-xs text-[#5e5c76] leading-relaxed"
+								>
+									Mobiliario a medida, encimeras de piedra
+									natural / cuarzo compacto y griferías
+									termostáticas de alta eficiencia hídrica.
+								</p>
+							</div>
+
+							<!-- Finish 4 -->
+							<div
+								class="bg-white p-7 rounded border border-[#ceced6] shadow-sm hover:shadow-md transition-shadow space-y-4"
+							>
+								<div
+									class="w-12 h-12 bg-[#486A7F]/10 rounded-lg flex items-center justify-center text-[#486A7F]"
+								>
+									<span
+										class="material-symbols-outlined text-2xl"
+										>door_front</span
+									>
+								</div>
+								<h4
+									class="font-heading font-bold text-base text-[#1e1d29]"
+								>
+									Puertas & Armarios Aislantes
+								</h4>
+								<p
+									class="text-xs text-[#5e5c76] leading-relaxed"
+								>
+									Puertas de paso lacadas macizas y armarios
+									empotrados vestidores completamente
+									equipados con iluminación LED.
+								</p>
+							</div>
+						</div>
+
+						<!-- Photo Slider Gallery for Finishes -->
+						<div class="mt-8 relative">
+							<div class="flex justify-between items-center mb-6">
+								<h4
+									class="font-heading text-xl font-bold text-[#1e1d29]"
+								>
+									Galería de Detalles y Acabados Reales
+								</h4>
+								<div class="flex gap-2">
+									<button
+										id="slideLeft"
+										aria-label="Anterior"
+										class="w-10 h-10 rounded-full bg-white border border-[#ceced6] text-[#1e1d29] hover:bg-[#B62B2A] hover:text-white hover:border-[#B62B2A] transition-colors flex items-center justify-center shadow-sm"
+									>
+										<span class="material-symbols-outlined"
+											>west</span
+										>
+									</button>
+									<button
+										id="slideRight"
+										aria-label="Siguiente"
+										class="w-10 h-10 rounded-full bg-white border border-[#ceced6] text-[#1e1d29] hover:bg-[#B62B2A] hover:text-white hover:border-[#B62B2A] transition-colors flex items-center justify-center shadow-sm"
+									>
+										<span class="material-symbols-outlined"
+											>east</span
+										>
+									</button>
+								</div>
+							</div>
+
+							<div
+								id="finishesSlider"
+								class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar pb-4"
+							>
+								<!-- Slide 1 -->
+								<div
+									class="snap-start shrink-0 w-[280px] sm:w-[360px] group relative rounded-xl overflow-hidden border border-[#ceced6] shadow-md h-[260px]"
+								>
+									<img
+										src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1lTVQQEu_yQK2BnKMSq3ERmzlLeTx4YXorcjfeV09WtFp5G5JQjeyBQjpi-kLyU2hZk2OJiynyQxkp2DsdShu4p98z1KTkB5L2Hn52548jQHpihwSvv0B5X7pyyyM6qYR_nDjHeiyX7ZtXTx8GODLf_P_qj5qra5RxxuJqxhmPfLHRcpfpX_RDd_QBwrGgOoV5AA4TUt3OR1NRhHlNVEjcEg_uxSBtljNVe2gWcyGcvj-IiNyvtY_ocsl05r73MypTTa6UbvWlA"
+										alt="Suelos Porcelánicos de Gran Formato"
+										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+									<div
+										class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+									>
+									</div>
+									<div
+										class="absolute bottom-4 left-4 right-4 text-white"
+									>
+										<span
+											class="text-[10px] uppercase tracking-wider font-bold text-[#4af3f4]"
+											>Pavimentos</span
+										>
+										<p
+											class="font-heading text-sm font-bold"
+										>
+											Porcelánico Gran Formato
+										</p>
+									</div>
+								</div>
+
+								<!-- Slide 2 -->
+								<div
+									class="snap-start shrink-0 w-[280px] sm:w-[360px] group relative rounded-xl overflow-hidden border border-[#ceced6] shadow-md h-[260px]"
+								>
+									<img
+										src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI3eh4gSXUIGZdhvhTMCpaN07Y-CnoFoUgVKt3dzj4nqNe5qJRjjuRDkDWwnHqpeQrxpbW93Itw4dcnZ992Sm0lIaRj7PMSsprY2z5VUFiWA_MNGgW11f3Bdak05Y4jalof66Zkm6_UNHkjKoMvFGmNhkOUIWkfBrnqAWvp7wmMYT4-XWkKQnDMHj7RMed3Ffig2KkJh1Ps28Lkufe6u3CKkv-7joKWntEmFkm_qdnWGY7aiZAGvGohULRwtb-YhKRNSp9YFVmMg"
+										alt="Cocinas Integradas de Diseño"
+										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+									<div
+										class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+									>
+									</div>
+									<div
+										class="absolute bottom-4 left-4 right-4 text-white"
+									>
+										<span
+											class="text-[10px] uppercase tracking-wider font-bold text-[#f5b582]"
+											>Mobiliario</span
+										>
+										<p
+											class="font-heading text-sm font-bold"
+										>
+											Cocina Abierta Integrada
+										</p>
+									</div>
+								</div>
+
+								<!-- Slide 3 -->
+								<div
+									class="snap-start shrink-0 w-[280px] sm:w-[360px] group relative rounded-xl overflow-hidden border border-[#ceced6] shadow-md h-[260px]"
+								>
+									<img
+										src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdCHO5x8TqK0NP_ZdMerkB83axnaVQiNJHhkiQUulNIjF0MpZShmxWlL2GMnSIBPQ0b16XIbv2xMksHHa2kLHHqQfzIMFN6UsD3txQTmdwtaNRaqyOJgUYFGH2Rx6Zs7t4WCRc71L2dXTQo8V_L5XP5LyZgufSzOt9mKgI54goE2PIC14uQ6hLbEJTwd6h_m675enCyxAagzmcQfChrPLSZti_3A0UVkF3wltsLVY5KAW86Qmzg5DU4EiKQm4gIQdYpRTsRAg0gA"
+										alt="Baños Suites y Grifería Termostática"
+										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+									<div
+										class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+									>
+									</div>
+									<div
+										class="absolute bottom-4 left-4 right-4 text-white"
+									>
+										<span
+											class="text-[10px] uppercase tracking-wider font-bold text-[#4af3f4]"
+											>Sanitarios</span
+										>
+										<p
+											class="font-heading text-sm font-bold"
+										>
+											Baño Suite con Grifería Negra
+										</p>
+									</div>
+								</div>
+
+								<!-- Slide 4 -->
+								<div
+									class="snap-start shrink-0 w-[280px] sm:w-[360px] group relative rounded-xl overflow-hidden border border-[#ceced6] shadow-md h-[260px]"
+								>
+									<img
+										src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEMGCmxZKMnskG_s7reuQioGcpatUT02f3AIEvjSpuaSx77OHbP9GhjOlfbuZzq52hjjMs-3U2bg13YFp8a9p09WO0QpKM3vcr4i4O_vpDKSTGQ2kT6tXDMc-AMgn7S6aU9GFUxfpYpKSjsGh7K9ojKHA84lbDN-t4AloWjqGM_S4DV72biZFgMCqdAy6mnBCJ1ozac4NY_8aVpQFaTUiOUYYPF31gvlGWXMi9IUKCTeChq7OTwq9sf7eXNKG-PIjaW3lGgy_zw"
+										alt="Carpintería Exterior RPT"
+										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+									<div
+										class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+									>
+									</div>
+									<div
+										class="absolute bottom-4 left-4 right-4 text-white"
+									>
+										<span
+											class="text-[10px] uppercase tracking-wider font-bold text-[#f5b582]"
+											>Carpintería</span
+										>
+										<p
+											class="font-heading text-sm font-bold"
+										>
+											Ventanales Correderos RPT
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<script>
+						document.addEventListener("DOMContentLoaded", () => {
+							const slider =
+								document.getElementById("finishesSlider");
+							const leftBtn =
+								document.getElementById("slideLeft");
+							const rightBtn =
+								document.getElementById("slideRight");
+
+							if (slider && leftBtn && rightBtn) {
+								leftBtn.addEventListener("click", () => {
+									slider.scrollBy({
+										left: -320,
+										behavior: "smooth",
+									});
+								});
+								rightBtn.addEventListener("click", () => {
+									slider.scrollBy({
+										left: 320,
+										behavior: "smooth",
+									});
+								});
+							}
+						});
+					</script>
+
+					<!-- Dedicated Energy Efficiency & Eco Compliance Section -->
+					<div class="mt-20 pt-16 border-t border-[#ceced6]">
+						<div
+							class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+						>
+							<div class="lg:col-span-5 space-y-6">
+								<span
+									class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#2D9E9F]/10 text-[#2D9E9F] text-[11px] font-bold uppercase tracking-wider border border-[#2D9E9F]/30"
+								>
+									<span
+										class="material-symbols-outlined text-base"
+										>eco</span
+									>
+									Sostenibilidad y Normativa Canaria
+								</span>
+								<h3
+									class="text-2xl lg:text-3xl font-bold text-[#1e1d29] font-heading"
+								>
+									Eficiencia Energética y Cumplimiento de la
+									Normativa Eco en España y Canarias
+								</h3>
+								<p
+									class="text-[#5e5c76] text-sm leading-relaxed"
+								>
+									En <strong
+										>ASESORES INMOBILIARIOS MARAM SL</strong
+									> garantizamos que cada proyecto de edificación
+									y reforma cumpla con el <strong
+										>Código Técnico de la Edificación (CTE
+										DB-HE)</strong
+									> de España y con las <strong
+										>directivas europeas de consumo casi
+										nulo (EECN / nZEB)</strong
+									>.
+								</p>
+								<p
+									class="text-[#5e5c76] text-sm leading-relaxed"
+								>
+									Nos adaptamos específicamente a las
+									exigencias térmicas y bioclimáticas de las
+									Islas Canarias (Reglamento EREE y
+									certificación energética obligatoria A/B).
+								</p>
+							</div>
+
+							<div
+								class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6"
+							>
+								<div
+									class="bg-white p-6 rounded border border-[#ceced6] shadow-sm space-y-3"
+								>
+									<div
+										class="w-10 h-10 bg-[#2D9E9F]/10 rounded flex items-center justify-center text-[#2D9E9F]"
+									>
+										<span class="material-symbols-outlined"
+											>bolt</span
+										>
+									</div>
+									<h4
+										class="font-heading font-bold text-base text-[#1e1d29]"
+									>
+										Certificado Energético A+
+									</h4>
+									<p
+										class="text-xs text-[#5e5c76] leading-relaxed"
+									>
+										Optimizamos el aislamiento térmico
+										perimetral y la ventilación cruzada
+										natural para reducir hasta un 70% el
+										consumo eléctrico.
+									</p>
+								</div>
+
+								<div
+									class="bg-white p-6 rounded border border-[#ceced6] shadow-sm space-y-3"
+								>
+									<div
+										class="w-10 h-10 bg-[#D38C45]/10 rounded flex items-center justify-center text-[#D38C45]"
+									>
+										<span class="material-symbols-outlined"
+											>solar_power</span
+										>
+									</div>
+									<h4
+										class="font-heading font-bold text-base text-[#1e1d29]"
+									>
+										Energías Renovables CTE
+									</h4>
+									<p
+										class="text-xs text-[#5e5c76] leading-relaxed"
+									>
+										Integración fotovoltaica y aerotermia
+										según la exigencia HE-4 del Código
+										Técnico para agua caliente y
+										autoconsumo.
+									</p>
+								</div>
+
+								<div
+									class="bg-white p-6 rounded border border-[#ceced6] shadow-sm space-y-3"
+								>
+									<div
+										class="w-10 h-10 bg-[#B62B2A]/10 rounded flex items-center justify-center text-[#B62B2A]"
+									>
+										<span class="material-symbols-outlined"
+											>verified</span
+										>
+									</div>
+									<h4
+										class="font-heading font-bold text-base text-[#1e1d29]"
+									>
+										Normativa Canaria & EREE
+									</h4>
+									<p
+										class="text-xs text-[#5e5c76] leading-relaxed"
+									>
+										Cumplimiento riguroso de las Leyes de
+										Cambio Climático y Transición Energética
+										de Canarias para licencias directas.
+									</p>
+								</div>
+
+								<div
+									class="bg-white p-6 rounded border border-[#ceced6] shadow-sm space-y-3"
+								>
+									<div
+										class="w-10 h-10 bg-[#486A7F]/10 rounded flex items-center justify-center text-[#486A7F]"
+									>
+										<span class="material-symbols-outlined"
+											>water_drop</span
+										>
+									</div>
+									<h4
+										class="font-heading font-bold text-base text-[#1e1d29]"
+									>
+										Gestión Hídrica Eco
+									</h4>
+									<p
+										class="text-xs text-[#5e5c76] leading-relaxed"
+									>
+										Sistemas de recirculación y captación de
+										aguas pluviales adaptados al ecosistema
+										insular de Tenerife.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Local Expertise (Deep Crimson & Slate Dark Theme) -->
+			<section class="py-24 bg-[#190606] text-white overflow-hidden">
+				<div class="px-6 lg:px-16 max-w-[1280px] mx-auto">
+					<div
+						class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+					>
+						<div class="space-y-6">
+							<h2
+								class="font-heading text-3xl sm:text-5xl font-bold leading-tight text-white"
+							>
+								Conocimiento de Tenerife, Visión Inmobiliaria
+								Global.
+							</h2>
+							<p class="text-[#ceced6] text-lg leading-relaxed">
+								Con sede en La Orotava y cobertura en Santa Cruz
+								de Tenerife, Tenerife Sur, San Isidro, Puerto de
+								la Cruz y Tacoronte. Ofrecemos un servicio de
+								construcción basado en la calidad y la
+								fiabilidad de principio a fin.
+							</p>
+							<div class="grid grid-cols-2 gap-6 pt-4">
+								<div>
+									<span
+										class="material-symbols-outlined text-[#4af3f4] text-4xl mb-2"
+										>landscape</span
+									>
+									<h4
+										class="text-[12px] font-bold uppercase text-white tracking-wider mb-1"
+									>
+										Respeto al Entorno Canario
+									</h4>
+									<p class="text-xs text-[#ceced6]/70">
+										Integración paisajística y
+										sostenibilidad en Canarias.
+									</p>
+								</div>
+								<div>
+									<span
+										class="material-symbols-outlined text-[#f5b582] text-4xl mb-2"
+										>verified_user</span
+									>
+									<h4
+										class="text-[12px] font-bold uppercase text-white tracking-wider mb-1"
+									>
+										Garantía MARAM SL
+									</h4>
+									<p class="text-xs text-[#ceced6]/70">
+										Asesores inmobiliarios de confianza.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div
+							class="relative h-[380px] bg-[#3D3B4F] overflow-hidden border border-[#2D9E9F]/40 rounded shadow-2xl"
+						>
+							<img
+								class="w-full h-full object-cover opacity-80"
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdCHO5x8TqK0NP_ZdMerkB83axnaVQiNJHhkiQUulNIjF0MpZShmxWlL2GMnSIBPQ0b16XIbv2xMksHHa2kLHHqQfzIMFN6UsD3txQTmdwtaNRaqyOJgUYFGH2Rx6Zs7t4WCRc71L2dXTQo8V_L5XP5LyZgufSzOt9mKgI54goE2PIC14uQ6hLbEJTwd6h_m675enCyxAagzmcQfChrPLSZti_3A0UVkF3wltsLVY5KAW86Qmzg5DU4EiKQm4gIQdYpRTsRAg0gA"
+								alt="Mapa de desarrollos inmobiliarios y obra nueva en Tenerife"
+							/>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Contact / Form Section -->
+			<section
+				id="contacto"
+				class="py-24 bg-[#fbe6db] border-t border-[#D38C45]/30"
+			>
+				<div class="px-6 lg:px-16 max-w-[1280px] mx-auto">
+					<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+						<div class="md:col-span-5 space-y-6">
+							<span
+								class="text-[12px] font-bold text-[#B62B2A] uppercase tracking-[0.2em] block"
+								>Contacto Directo</span
+							>
+							<h2
+								class="text-3xl lg:text-4xl font-bold text-[#1e1d29] font-heading"
+							>
+								Contacte con nuestros Asesores Inmobiliarios
+							</h2>
+							<p class="text-[#5e5c76] text-base">
+								Póngase en contacto con nuestra empresa
+								constructora para consultar promociones de obra
+								nueva, comprar casa en Tenerife o solicitar un
+								presupuesto sin compromiso.
+							</p>
+
+							<div class="space-y-4 pt-4 text-sm text-[#5e5c76]">
+								<div class="flex items-start gap-3">
+									<span
+										class="material-symbols-outlined text-[#B62B2A]"
+										>location_on</span
+									>
+									<p>
+										<strong>Oficina Central: </strong>
+										{address}
+									</p>
+								</div>
+								<div class="flex items-start gap-3">
+									<span
+										class="material-symbols-outlined text-[#B62B2A]"
+										>call</span
+									>
+									<p>
+										<strong>Teléfonos: </strong>
+										<a
+											href={`tel:${phone1}`}
+											class="hover:underline">{phone1}</a
+										> / <a
+											href={`tel:${phone2}`}
+											class="hover:underline">{phone2}</a
+										>
+									</p>
+								</div>
+								<div class="flex items-start gap-3">
+									<span
+										class="material-symbols-outlined text-[#B62B2A]"
+										>mail</span
+									>
+									<p>
+										<strong>Correo Electrónico: </strong>
+										<a
+											href={`mailto:${email}`}
+											class="hover:underline">{email}</a
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div
+							class="md:col-span-7 bg-white p-8 lg:p-10 border border-[#ceced6] shadow-xl rounded"
+						>
+							<h3
+								class="font-heading text-2xl font-bold text-[#1e1d29] mb-6"
+							>
+								Solicitar información de obra nueva o inmuebles
+							</h3>
+							<form
+								class="space-y-4"
+								onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto a la brevedad.');"
+							>
+								<div
+									class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+								>
+									<div>
+										<label
+											class="block text-[11px] font-bold uppercase text-[#5e5c76] mb-1"
+											for="name">Nombre Completo</label
+										>
+										<input
+											id="name"
+											type="text"
+											required
+											class="w-full px-4 py-3 border border-[#ceced6] bg-white text-[#1e1d29] focus:outline-none focus:border-[#B62B2A] rounded"
+											placeholder="Ej. Juan Pérez"
+										/>
+									</div>
+									<div>
+										<label
+											class="block text-[11px] font-bold uppercase text-[#5e5c76] mb-1"
+											for="phone">Teléfono</label
+										>
+										<input
+											id="phone"
+											type="tel"
+											required
+											class="w-full px-4 py-3 border border-[#ceced6] bg-white text-[#1e1d29] focus:outline-none focus:border-[#B62B2A] rounded"
+											placeholder="Ej. 673 000 000"
+										/>
+									</div>
+								</div>
+								<div>
+									<label
+										class="block text-[11px] font-bold uppercase text-[#5e5c76] mb-1"
+										for="email">Correo Electrónico</label
+									>
+									<input
+										id="email"
+										type="email"
+										required
+										class="w-full px-4 py-3 border border-[#ceced6] bg-white text-[#1e1d29] focus:outline-none focus:border-[#B62B2A] rounded"
+										placeholder="correo@ejemplo.com"
+									/>
+								</div>
+								<div>
+									<label
+										class="block text-[11px] font-bold uppercase text-[#5e5c76] mb-1"
+										for="message"
+										>Mensaje / Interés (Obra Nueva, Pisos,
+										Casas)</label
+									>
+									<textarea
+										id="message"
+										rows="4"
+										required
+										class="w-full px-4 py-3 border border-[#ceced6] bg-white text-[#1e1d29] focus:outline-none focus:border-[#B62B2A] rounded"
+										placeholder="Cuéntenos sobre su vivienda o proyecto de edificación..."
+									></textarea>
+								</div>
+
+								<!-- Privacy Policy Checkbox -->
+								<div class="flex items-start gap-3 pt-1 pb-2">
+									<input
+										id="privacy"
+										type="checkbox"
+										required
+										class="mt-1 h-4 w-4 rounded border-[#ceced6] text-[#B62B2A] focus:ring-[#B62B2A] accent-[#B62B2A] cursor-pointer"
+									/>
+									<label
+										for="privacy"
+										class="text-xs text-[#5e5c76] cursor-pointer select-none leading-relaxed"
+									>
+										He leído y acepto la <a
+											href="#"
+											class="text-[#B62B2A] underline font-medium hover:text-[#922222]"
+											>Política de Privacidad</a
+										> y el tratamiento de mis datos personales
+										para la gestión de la consulta.
+									</label>
+								</div>
+
+								<button
+									type="submit"
+									class="w-full bg-brand-red-gradient hover:opacity-95 text-white py-4 text-[12px] font-bold uppercase tracking-[0.1em] transition-all shadow-md shadow-[#B62B2A]/30 rounded"
+								>
+									Enviar Solicitud
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="bg-[#190606] text-white border-t border-[#5e5c76]/30">
+			<div class="px-6 lg:px-16 py-16 max-w-[1280px] mx-auto">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-[#5e5c76]/30">
+					<!-- Col 1: Corporate Identity & Logo (4 Cols) -->
+					<div class="md:col-span-4 space-y-4">
+						<div class="flex flex-col items-start gap-2">
+							<img
+								src={logoWhite}
+								alt={companyName}
+								class="h-16 lg:h-20 w-auto object-contain p-1 -ml-1"
+							/>
+							<div class="flex flex-col">
+								<span class="font-bold text-white text-base leading-snug">{companyName}</span>
+								<span class="text-[10px] uppercase tracking-wider text-[#4af3f4] font-semibold">Construcción & Promociones Inmobiliarias</span>
+							</div>
+						</div>
+						<p class="text-xs text-[#ceced6] leading-relaxed">
+							Empresa constructora y promotora especializada en la edificación de obra nueva, venta de casas, pisos y reformas integrales de máxima calidad en Tenerife.
+						</p>
+						<div class="text-xs text-[#ceced6]/80 space-y-1 pt-1">
+							<p><strong>NIF / CIF:</strong> B-38974512 (Registro Mercantil Sta. Cruz de Tenerife)</p>
+							<p><strong>Domicilio:</strong> Polígono San Gerónimo, La Orotava, Tenerife</p>
+						</div>
+					</div>
+
+					<!-- Col 2: SEO Targeted Locations & Obra Nueva (3 Cols) -->
+					<div class="md:col-span-3 space-y-3">
+						<h4 class="font-heading font-bold text-sm uppercase tracking-wider text-[#4af3f4]">Obra Nueva por Zonas</h4>
+						<ul class="space-y-1.5 text-xs text-[#ceced6]">
+							<li><a href="#promociones" class="hover:text-white transition-colors">Obra Nueva en Tenerife Sur</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Venta de Casas en Santa Cruz</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Promociones en Adeje & El Duque</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Pisos Nuevos en La Orotava</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Chalets en San Isidro & Granadilla</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Adosados con Jardín en Tacoronte</a></li>
+							<li><a href="#promociones" class="hover:text-white transition-colors">Viviendas en Los Cristianos</a></li>
+						</ul>
+					</div>
+
+					<!-- Col 3: Servicios & Soluciones (2.5 Cols -> md:col-span-2) -->
+					<div class="md:col-span-2 space-y-3">
+						<h4 class="font-heading font-bold text-sm uppercase tracking-wider text-[#f5b582]">Servicios</h4>
+						<ul class="space-y-1.5 text-xs text-[#ceced6]">
+							<li><a href="#servicios" class="hover:text-white transition-colors">Promotora Inmobiliaria</a></li>
+							<li><a href="#servicios" class="hover:text-white transition-colors">Constructora Llave en Mano</a></li>
+							<li><a href="#servicios" class="hover:text-white transition-colors">Reformas Integrales Lujo</a></li>
+							<li><a href="#servicios" class="hover:text-white transition-colors">Certificación CTE A+</a></li>
+							<li><a href="#servicios" class="hover:text-white transition-colors">Asesores Inmobiliarios</a></li>
+						</ul>
+					</div>
+
+					<!-- Col 4: Legal & Cumplimiento (3 Cols) -->
+					<div class="md:col-span-3 space-y-3">
+						<h4 class="font-heading font-bold text-sm uppercase tracking-wider text-[#4af3f4]">Legal & Contacto</h4>
+						<ul class="space-y-1.5 text-xs text-[#ceced6]">
+							<li><a href="#contacto" class="hover:text-white transition-colors">Aviso Legal & Términos de Uso</a></li>
+							<li><a href="#contacto" class="hover:text-white transition-colors">Política de Privacidad (RGPD)</a></li>
+							<li><a href="#contacto" class="hover:text-white transition-colors">Política de Cookies</a></li>
+							<li><a href="#contacto" class="hover:text-white transition-colors">Normativa Canary EREE</a></li>
+						</ul>
+						<div class="pt-2 text-xs text-[#ceced6] space-y-1">
+							<p><strong>Tel:</strong> <a href={`tel:${phone1}`} class="text-[#4af3f4] hover:underline">{phone1}</a> / <a href={`tel:${phone2}`} class="text-[#4af3f4] hover:underline">{phone2}</a></p>
+							<p><strong>Email:</strong> <a href={`mailto:${email}`} class="text-[#4af3f4] hover:underline">{email}</a></p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Copyright Bottom Bar -->
+				<div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#ceced6]/70">
+					<div>
+						© {new Date().getFullYear()} {companyName}. Todos los derechos reservados.
+					</div>
+					<div class="text-center sm:text-right">
+						Construcción y Promociones en La Orotava, Santa Cruz y Tenerife Sur.
+					</div>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>

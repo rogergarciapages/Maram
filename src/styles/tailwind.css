@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Primary Red & Deep Crimson Tones */
+  .bg-brand-red { background-color: #B62B2A; }
+  .text-brand-red { color: #B62B2A; }
+  .border-brand-red { border-color: #B62B2A; }
+  
+  .bg-brand-dark-red { background-color: #922222; }
+  .bg-brand-crimson-deep { background-color: #5a1111; }
+  .bg-brand-maroon-dark { background-color: #290A0A; }
+  .bg-brand-black-red { background-color: #190606; }
+
+  /* Cyan & Teal Accent Tones */
+  .bg-teal-accent { background-color: #2D9E9F; }
+  .text-teal-accent { color: #2D9E9F; }
+  .border-teal-accent { border-color: #2D9E9F; }
+  .bg-cyan-bright { background-color: #4af3f4; }
+  .text-cyan-bright { color: #4af3f4; }
+  .bg-teal-dark { background-color: #135151; }
+
+  /* Warm Gold & Amber Tones */
+  .bg-gold-amber { background-color: #D38C45; }
+  .text-gold-amber { color: #D38C45; }
+  .border-gold-amber { border-color: #D38C45; }
+  .bg-gold-light { background-color: #f5b582; }
+
+  /* Slate & Steel Blue Neutral Tones */
+  .bg-slate-steel { background-color: #486A7F; }
+  .text-slate-steel { color: #486A7F; }
+  .border-slate-steel { border-color: #486A7F; }
+  .bg-slate-dark { background-color: #182730; }
+
+  /* Deep Violet Dark Background Tones */
+  .bg-violet-dark { background-color: #3D3B4F; }
+  .text-violet-dark { color: #3D3B4F; }
+  .bg-violet-deep { background-color: #1e1d29; }
+
+  /* Light Soft Surface Tones */
+  .bg-surface-fceded { background-color: #fceded; }
+  .bg-surface-f1f0f3 { background-color: #f1f0f3; }
+  .bg-surface-fbe6db { background-color: #fbe6db; }
+  .bg-surface-clean { background-color: #ffffff; }
+
+  /* Gradients */
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, #190606 0%, #290A0A 40%, #1e1d29 100%);
+  }
+  .bg-brand-red-gradient {
+    background: linear-gradient(135deg, #B62B2A 0%, #922222 100%);
+  }
+  .bg-teal-gradient {
+    background: linear-gradient(135deg, #4af3f4 0%, #2D9E9F 100%);
+  }
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #f5b582 0%, #D38C45 100%);
+  }
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #f5b582 0%, #D38C45 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-cyan-gradient {
+    background: linear-gradient(135deg, #4af3f4 0%, #2D9E9F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

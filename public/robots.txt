@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ventos-construction.com/sitemap.xml
+
+Host: ventos-construction.com
