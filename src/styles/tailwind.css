@@ -1,67 +1,63 @@
 @import "tailwindcss";
 
 @layer utilities {
-  /* Primary Red & Deep Crimson Tones */
-  .bg-brand-red { background-color: #B62B2A; }
-  .text-brand-red { color: #B62B2A; }
-  .border-brand-red { border-color: #B62B2A; }
-  
-  .bg-brand-dark-red { background-color: #922222; }
-  .bg-brand-crimson-deep { background-color: #5a1111; }
-  .bg-brand-maroon-dark { background-color: #290A0A; }
-  .bg-brand-black-red { background-color: #190606; }
+  /* Main Theme Palette */
+  /* 1. Dark Charcoal Slate #343B43 */
+  .bg-charcoal { background-color: #343B43; }
+  .bg-charcoal-dark { background-color: #252A30; }
+  .bg-charcoal-deep { background-color: #1c2024; }
+  .text-charcoal { color: #343B43; }
+  .border-charcoal { border-color: #343B43; }
+  .border-charcoal-subtle { border-color: rgba(52, 59, 67, 0.15); }
 
-  /* Cyan & Teal Accent Tones */
-  .bg-teal-accent { background-color: #2D9E9F; }
-  .text-teal-accent { color: #2D9E9F; }
-  .border-teal-accent { border-color: #2D9E9F; }
-  .bg-cyan-bright { background-color: #4af3f4; }
-  .text-cyan-bright { color: #4af3f4; }
-  .bg-teal-dark { background-color: #135151; }
+  /* 2. Light Cream #F1EDE0 */
+  .bg-cream { background-color: #F1EDE0; }
+  .bg-cream-light { background-color: #F8F5EC; }
+  .bg-cream-dark { background-color: #E5DFCE; }
+  .text-cream { color: #F1EDE0; }
+  .border-cream { border-color: #F1EDE0; }
+  .border-cream-subtle { border-color: rgba(241, 237, 224, 0.25); }
 
-  /* Warm Gold & Amber Tones */
-  .bg-gold-amber { background-color: #D38C45; }
-  .text-gold-amber { color: #D38C45; }
-  .border-gold-amber { border-color: #D38C45; }
-  .bg-gold-light { background-color: #f5b582; }
+  /* 3. Off White #FAF9F6 */
+  .bg-offwhite { background-color: #FAF9F6; }
+  .text-offwhite { color: #FAF9F6; }
+  .border-offwhite { border-color: #FAF9F6; }
 
-  /* Slate & Steel Blue Neutral Tones */
-  .bg-slate-steel { background-color: #486A7F; }
-  .text-slate-steel { color: #486A7F; }
-  .border-slate-steel { border-color: #486A7F; }
-  .bg-slate-dark { background-color: #182730; }
-
-  /* Deep Violet Dark Background Tones */
-  .bg-violet-dark { background-color: #3D3B4F; }
-  .text-violet-dark { color: #3D3B4F; }
-  .bg-violet-deep { background-color: #1e1d29; }
-
-  /* Light Soft Surface Tones */
-  .bg-surface-fceded { background-color: #fceded; }
-  .bg-surface-f1f0f3 { background-color: #f1f0f3; }
-  .bg-surface-fbe6db { background-color: #fbe6db; }
-  .bg-surface-clean { background-color: #ffffff; }
-
-  /* Gradients */
+  /* Gradient Utilities */
   .bg-hero-gradient {
-    background: linear-gradient(135deg, #190606 0%, #290A0A 40%, #1e1d29 100%);
+    background: linear-gradient(135deg, #1c2024 0%, #343B43 50%, #252A30 100%);
   }
+  .bg-charcoal-gradient {
+    background: linear-gradient(135deg, #343B43 0%, #252A30 100%);
+  }
+  .bg-cream-gradient {
+    background: linear-gradient(135deg, #F1EDE0 0%, #E5DFCE 100%);
+  }
+
+  /* Alias Gradients for smooth styling migration */
   .bg-brand-red-gradient {
-    background: linear-gradient(135deg, #B62B2A 0%, #922222 100%);
+    background: linear-gradient(135deg, #343B43 0%, #252A30 100%);
   }
   .bg-teal-gradient {
-    background: linear-gradient(135deg, #4af3f4 0%, #2D9E9F 100%);
+    background: linear-gradient(135deg, #F1EDE0 0%, #E5DFCE 100%);
   }
   .bg-gold-gradient {
-    background: linear-gradient(135deg, #f5b582 0%, #D38C45 100%);
+    background: linear-gradient(135deg, #FAF9F6 0%, #F1EDE0 100%);
+  }
+  
+  /* Text Gradients */
+  .text-cream-gradient {
+    background: linear-gradient(135deg, #FAF9F6 0%, #F1EDE0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .text-gold-gradient {
-    background: linear-gradient(135deg, #f5b582 0%, #D38C45 100%);
+    background: linear-gradient(135deg, #FAF9F6 0%, #F1EDE0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .text-cyan-gradient {
-    background: linear-gradient(135deg, #4af3f4 0%, #2D9E9F 100%);
+    background: linear-gradient(135deg, #FAF9F6 0%, #F1EDE0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
