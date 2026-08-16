@@ -37,9 +37,8 @@ const whyUsText =
 	client?.why_choose_us ||
 	"Porque para nosotros cada cliente es único. Nos implicamos en cada proyecto como si fuera propio, ofreciendo un trato cercano, asesoramiento personalizado y un trabajo realizado con dedicación y profesionalidad. Nuestro objetivo no es solo construir, sino generar confianza y que nuestros clientes se sientan tranquilos durante todo el proceso.";
 
-const logoRed = "/logo-red.png";
-const logoWhite = "/logo-white.png";
-const logoPng = logoRed;
+const logoDark = "/Maram_dark_XS.png";
+const logoLight = "/Maram_light_XS.png";
 
 const siteUrl = "https://maram-inmobiliaria-construccion.es";
 const pageTitle = `${companyName} | Obra Nueva en Tenerife, Promotora y Constructora de Casas`;
@@ -144,10 +143,17 @@ const pageDescription = `${companyName} - Inmobiliaria y constructora experta en
 				class="flex justify-between items-center px-6 lg:px-16 py-3 max-w-[1280px] mx-auto"
 			>
 				<a href="#" class="flex items-center gap-3">
+					<!-- Dark logo for light mode -->
 					<img
-						src={logoRed}
+						src={logoDark}
 						alt={companyName}
-						class="h-12 lg:h-14 w-auto object-contain p-1 transition-all"
+						class="h-12 lg:h-14 w-auto object-contain p-1 transition-all block dark:hidden"
+					/>
+					<!-- Light logo for dark mode -->
+					<img
+						src={logoLight}
+						alt={companyName}
+						class="h-12 lg:h-14 w-auto object-contain p-1 transition-all hidden dark:block"
 					/>
 					<div class="hidden flex-col">
 						<span
@@ -1710,7 +1716,7 @@ const pageDescription = `${companyName} - Inmobiliaria y constructora experta en
 					<div class="md:col-span-4 space-y-4">
 						<div class="flex flex-col items-start gap-2">
 							<img
-								src={logoWhite}
+								src={logoLight}
 								alt={companyName}
 								class="h-16 lg:h-20 w-auto object-contain p-1 -ml-1"
 							/>
